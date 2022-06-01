@@ -1,0 +1,32 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    // Prevent double clicks on 3D canvas from triggering text select events
+    user-select: none;
+}
+canvas {
+    // Ensure canvas doesn't overflow
+    display: block;
+}
+
+// Example of overlayed content
+#content {
+    position: absolute;
+    top: 0px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    pointer-events: none;
+    > p {
+        background-color: rgb(163, 163, 139);
+        pointer-events: all;
+        user-select: text;
+        padding: 50px;
+        border-radius: 10px;
+    }
+}
