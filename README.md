@@ -1,4 +1,4 @@
-# This is a base template for a scaleable Three.js project
+# This is a base template for a scalable Three.js project
 
 To build the project first run:
 ```
