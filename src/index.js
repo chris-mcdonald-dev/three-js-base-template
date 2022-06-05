@@ -24,8 +24,9 @@ const controls = new OrbitControls(CurrentCamera, renderer.domElement)
 window.addEventListener('resize', () => {
   CurrentCamera.aspect = window.innerWidth / window.innerHeight;
   CurrentCamera.updateProjectionMatrix();
-
+  
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio)
 });
 
 // Actual 3D render loop
