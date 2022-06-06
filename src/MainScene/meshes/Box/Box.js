@@ -16,25 +16,28 @@ Canvas.addEventListener('pointermove', (e) => {
   {
     const objectsMousedOver = Canvas.raycaster.intersectObject(Box);
     if (objectsMousedOver.length) {
-      // Set the object's original position so we can return to it.
-      Box.originalPosition ||= {...Box.position}
-      // Cancel last animation if the user triggered the same object mid-animation
-      Box.tween?.stop()
-      
-      // Create our object's new animation
-      Box.tween = new Tween(Box.position)
-      Box.tween
-        .to({y: 4}, 350)
-        .easing(Easing.Quadratic.InOut)
-        .start()
-    } else {
-      if (Box.originalPosition) {
-        Box.tween = new Tween(Box.position)
-        .to(Box.originalPosition, 350)
-        .easing(Easing.Quadratic.InOut)
-        .start()
-      }
-    }
+      objectsMousedOver.forEach(({object}) => {
+        const position = object.position
+        const userData = object.geometry.userData
+        // Set the object's original position so we can return to it.
+        userData.originalPosition ||= {...position}
+        // Cancel last animation if the user triggered the same object mid-animation
+        userData.tween?.stop()
+        
+        // Create our object's new animation
+        userData.tween = new Tween(position)
+        userData.tween
+          .to({y: userData.originalPosition.y + 4}, 350)
+          .easing(Easing.Quadratic.InOut)
+          .onComplete(() => {
+            userData.tween = new Tween(position)
+              .to(userData.originalPosition, 350)
+              .easing(Easing.Quadratic.InOut)
+              .start()
+          })
+          .start()
+      })
+    } 
   }
 });
 
